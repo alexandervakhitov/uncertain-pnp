@@ -1,0 +1,19 @@
+function [R_est, t_est] = epnpu_pnplu(X, x, K, Sigmas3D, Sigmas2D, R_est_3, t_est_3, Xs, Xe, l, Sigmas3DLines, Sigmas2DLines, xs, xe)
+    Sigmas3D = replace_with_trace(Sigmas3D);
+    n = size(X, 2);
+    x3d_h = [X' ones(n,1)];
+    x2d_h = [x' ones(n, 1)];    
+%function [R,T,Xc,best_solution,opt]=efficient_pnpu_gauss(x3d_h,x2d_h,A,Sigmas3D,Sigmas2D,Rest,test,is_pca)    
+    %[R,t,ff, s] = EPnPLU(Xw,xx,xs, xe, Xs, Xe, Sigmas3D, Sigmas2D, l, Sigmas3DLines, Sigmas2DLines, Rest, test)
+    Sigmas2D = Sigmas2D/K(1,1)^2;
+    x = normalize_points(x, K);
+%     l = zeros(3,0);
+%     xs = zeros(2,0);
+%     xe = zeros(2,0);
+%     Xs = zeros(3,0);
+%     Xe = zeros(3,0);
+%     Sigmas3DLines = zeros(6,6,0);
+%     Sigmas2DLines = zeros(3,3,0);
+    [R_est, t_est, ~, ~] = EPnPLU(X,x,xs, xe, Xs, Xe, Sigmas3D, Sigmas2D, l, Sigmas3DLines, Sigmas2DLines, R_est_3, t_est_3);
+    [R_est, t_est] = add_solution(R_est, t_est, R_est_3, t_est_3);
+end

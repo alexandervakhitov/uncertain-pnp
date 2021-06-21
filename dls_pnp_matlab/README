@@ -1,0 +1,17 @@
+This is a fast matlab version of DLS-PNP. Approximate runtimes on my laptop (core 2 duo, 2.4 Ghz) were (i) 8 ms for small sized problems (~10 pts), (ii) 19 ms for medium sized problems (~100 pts), and (iii) 100 ms for bigger sized problems (~1000 pts). 
+
+The files are:
+README: this file
+SCRIPT.m: a file which simply runs the real world simulator and then the solver
+rws.m: a real world simulator which generates random points and their corresponding measured image coordinates
+dls_pnp.m: the solver. It is stand-alone, so you can drop this .m file in another directory and run it with your code independently.
+robust_dls_pnp.m: this runs dls_pnp for three different configurations (rotation around x/y/z by 90 deg), which will avoid the singular configuration for the Cayley parameters (when theta = 180 deg).
+
+Please feel free to email me with comments, concerns, or suggestions:
+joel@umn.edu
+
+Revision info:
+
+05/17/12 - Added robust_dls_pnp for avoiding the singular configuration of Cayley parameters
+11/15/11 - Created a more efficient dls_pnp_opt.m
+11/13/11 - Updated comments in dls_pnp.m, and removed quaternion computations from rws.m
